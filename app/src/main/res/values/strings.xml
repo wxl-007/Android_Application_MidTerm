@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MicroProject</string>
+    <string name="score">Your score is</string>
+    <string name="Chance">Remaining chances are</string>
+    <string name="winMessage">"CONGRATULATION" you're won</string>
+    <string name="loseMessage">SORRY GAME OVER</string>
+    <string name="greatMessage">The number you entered is greater than the number chosen by the program</string>
+    <string name="lessMessage">The number you entered is less than the number chosen by the program</string>
+    <string name="timeover">Sorry, game over, your time is exhausted</string>
+
+</resources>
