@@ -65,8 +65,16 @@ public class MainActivity extends AppCompatActivity {
             if(game.GetRemainingTimes()>0) {
                 result = game.GuessNum(curInput);
                 Resources  res =  getResources();
-                if(result==-1) inputHistory.add(curInput+" "+res.getString(R.string.lessMessage));
-                else if(result ==1)inputHistory.add(curInput+" "+res.getString(R.string.greatMessage));
+                if(result==-1) {
+                    String tStr = curInput+" "+res.getString(R.string.lessMessage);
+                    inputHistory.add(tStr);
+                    Toast.makeText(this,tStr,Toast.LENGTH_SHORT).show();
+                }
+                else if(result ==1){
+                    String tStr = curInput+" "+res.getString(R.string.greatMessage);
+                    Toast.makeText(this,tStr,Toast.LENGTH_SHORT).show();
+                    inputHistory.add(tStr);
+                }
                 else {
                     GameOver(true);
                     return;
@@ -89,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
         if(isWin) {
             ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
             toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-            Toast.makeText(this,res.getString(R.string.winMessage),Toast.LENGTH_LONG);
+            Toast.makeText(this,res.getString(R.string.winMessage),Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(this,res.getString(R.string.loseMessage),Toast.LENGTH_LONG);
+            Toast.makeText(this,res.getString(R.string.loseMessage),Toast.LENGTH_LONG).show();
         }
 
     }
