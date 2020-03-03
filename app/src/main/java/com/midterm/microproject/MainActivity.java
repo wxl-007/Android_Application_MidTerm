@@ -2,23 +2,28 @@ package com.midterm.microproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-
 
     GuessingGame game;
     EditText txt_input;
@@ -28,7 +33,13 @@ public class MainActivity extends AppCompatActivity {
     Integer curInput = Integer.MIN_VALUE;
     List<String> inputHistory;
     Boolean isGameOver;
-
+    ProgressBar pb_timer;
+    ImageView img_btn_Setting;
+    private Timer gameTimer;
+    int totalTime = 20;
+    int curTimeLeft = 0;
+    Dialog dialog ;
+    // init all components
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,26 +50,42 @@ public class MainActivity extends AppCompatActivity {
         txt_time = (TextView)findViewById(R.id.txt_times);
         txt_score = (TextView)findViewById(R.id.txt_score);
         lv_history = (ListView)findViewById(R.id.listView);
+        pb_timer = (ProgressBar)findViewById(R.id.pb_timer);
+        img_btn_Setting = (ImageView) findViewById(R.id.img_setting);
         btn_start.setEnabled(true);
         btn_guess.setEnabled(false);
         txt_input.setEnabled(false);
+        isGameOver=true;
+        dialog = new Dialog(this);
     }
-
+    // init game needs
     public void Init(){
         Integer tTimes = 10;
         game = new GuessingGame(tTimes);
+        gameTimer = new Timer();
+        curTimeLeft = totalTime;
         isGameOver = false;
         inputHistory = new ArrayList<String>();
+
+        gameTimer.scheduleAtFixedRate( new TimerTask() {
+            @Override
+            public void run() {
+                TimerInterval();
+            }
+        }, 0, 1000);
+        pb_timer.setMax(totalTime);
+        pb_timer.setProgress(curTimeLeft);
+
         UpdateUI();
     }
-
+    // restart game
     public void StartGame(View view){
         Init();
         btn_guess.setEnabled(true);
         txt_input.setEnabled(true);
         btn_start.setText("RESTART");
     }
-
+    //guess btn method
     public void CheckNumber(View view){
         byte result;
         if(CheckInput()) {
@@ -86,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+//game over no matter win or lose
     void GameOver(boolean isWin){
         isGameOver = true;
         btn_guess.setEnabled(false);
@@ -98,12 +125,15 @@ public class MainActivity extends AppCompatActivity {
             ToneGenerator toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
             toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
             Toast.makeText(this,res.getString(R.string.winMessage),Toast.LENGTH_LONG).show();
+            gameTimer.cancel();
         }else{
+            gameTimer.cancel();
+            pb_timer.setProgress(0);
             Toast.makeText(this,res.getString(R.string.loseMessage),Toast.LENGTH_LONG).show();
         }
-
     }
 
+    //input validation for dumb user
     Boolean CheckInput(){
         String tError = "";
         Integer tAns = Integer.MIN_VALUE;
@@ -126,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // update some ui change after every input
     void UpdateUI(){
         txt_time.setText(getResources().getString(R.string.Chance) +game.GetRemainingTimes() );
         txt_score.setText(getResources().getString(R.string.score) +game.GetRemainingTimes()*10 );
@@ -133,4 +164,53 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, inputHistory);
         lv_history.setAdapter(itemsAdapter);
     }
+
+
+    void TimerInterval(){
+        this.runOnUiThread(Timer_Tick);
+    }
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+//            Log.i("TIMER","time left " + curTimeLeft);
+            if(curTimeLeft>0) {
+                curTimeLeft--;
+                pb_timer.setProgress(curTimeLeft);
+            }else{
+                GameOver(false);
+            }
+        }
+    };
+
+    public void Setting(View view){
+        if(!isGameOver) return;
+        dialog.setContentView(R.layout.dialogbox);
+        dialog.setTitle("Setting");
+        TextView text = (TextView) dialog.findViewById(R.id.txt_dialogTitle);
+        text.setText("Input game duation");
+        Button btn_Submit = (Button) dialog.findViewById(R.id.btn_Submit);
+        final EditText inputTime = (EditText) dialog.findViewById(R.id.etxt_duation);
+        btn_Submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int  input = Integer.MIN_VALUE;
+                 try {
+                    input = Integer.parseInt(inputTime.getText().toString());
+                } catch (NumberFormatException nfe)
+                {
+                    input=Integer.MIN_VALUE;
+                }
+
+                if (input != Integer.MIN_VALUE && input > 0 && input < Integer.MAX_VALUE) {
+                    totalTime = input;
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(dialog.getContext(), "Invalid input!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        dialog.show();
+    }
+
+
 }

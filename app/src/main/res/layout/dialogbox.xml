@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4A695F5F"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <TextView
+        android:id="@+id/txt_dialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Input Time"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etxt_duation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/btn_Submit"
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#2196F3"
+        android:text="Submit"
+        android:textAlignment="center"
+        android:textColor="#F5EEEE"
+        android:textSize="18sp" />
+</LinearLayout>

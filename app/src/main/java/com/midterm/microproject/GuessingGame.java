@@ -2,6 +2,8 @@ package com.midterm.microproject;
 
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GuessingGame {
@@ -13,6 +15,7 @@ public class GuessingGame {
     private final int goalNum;
 
     public GuessingGame(int times){
+
         if(times>0) {
             totalTimes = times;
             remainingTimes = totalTimes;
@@ -22,6 +25,8 @@ public class GuessingGame {
         }else
             throw new IllegalArgumentException("invalid input number!!");
     }
+
+
 
     public byte GuessNum(int num){
         byte result = 0;
@@ -36,6 +41,7 @@ public class GuessingGame {
     public int GetRemainingTimes(){
         return remainingTimes;
     }
+    // for cheating
     public int GetAnswer(){
         return goalNum;
     }
