@@ -52,10 +52,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:ems="10"
+            android:hint="Password"
             android:inputType="textPersonName"
-            android:text="Password"
+            android:password="true"
             android:textAlignment="center"
-            android:textColor="#F8F8F8" />
+            android:textColor="#F8F8F8"
+            android:textColorHint="#EEE6E6" />
 
         <EditText
             android:id="@+id/etxt_confirmPsd"
@@ -63,10 +65,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:ems="10"
+            android:hint="Confirm Password"
             android:inputType="textPersonName"
-            android:text="Confirm Password"
+            android:password="true"
             android:textAlignment="center"
-            android:textColor="#F8F8F8" />
+            android:textColor="#F8F8F8"
+            android:textColorHint="#FFFFFF" />
 
         <Button
             android:id="@+id/btn_register"
