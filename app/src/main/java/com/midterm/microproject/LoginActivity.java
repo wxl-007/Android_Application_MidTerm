@@ -40,7 +40,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     boolean DBIsEmpty(){
-        String tQuery = "SELECT COUNT(DISTINCT `UserTable`) FROM `information_schema`.`columns` WHERE `table_schema` = 'UserDB'";
+        String tQuery = "SELECT Username " +
+                "FROM UserTable " +
+                "WHERE Username='admin' ;";
         Cursor c  = userDB.rawQuery(tQuery,null);
         return c.getCount() == 0;
     }

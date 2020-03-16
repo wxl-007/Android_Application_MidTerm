@@ -2,14 +2,17 @@ package com.midterm.microproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -37,7 +40,21 @@ public class RegisterActivity extends AppCompatActivity {
     public void Register( View view){
         if(RegisterValidation()){
             txt_error.setEnabled(false);
+            RegisterInDatabase();
         }
+    }
+
+    void RegisterInDatabase(){
+        String psd = etxt_password.getText().toString();
+        String username = etxt_username.getText().toString();
+
+        String cpsd = etxt_confirmPassword.getText().toString();
+        userDB.execSQL("INSERT INTO UserTable VALUES(username,psd)");
+        Toast.makeText(this,"register success!",Toast.LENGTH_SHORT);
+        Log.i("DB","register success");
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     boolean RegisterValidation(){
@@ -64,5 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
             txt_error.setEnabled(true);
         }
         return false;
+    }
+
+    // for taking pic as profile image
+    public void TakePic(View view){
+
     }
 }
