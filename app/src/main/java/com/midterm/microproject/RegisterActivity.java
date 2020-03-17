@@ -10,11 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,11 +26,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        btn_Register= (Button)findViewById(R.id.btn_register);
-        etxt_username = (EditText)findViewById(R.id.etxt_username);
-        etxt_password= (EditText)findViewById(R.id.etxt_psd);
-        etxt_confirmPassword=(EditText)findViewById(R.id.etxt_confirmPsd);
-        txt_error = (TextView)findViewById(R.id.txt_error);
+        btn_Register= (Button)findViewById(R.id.btn_rRegister);
+        etxt_username = (EditText)findViewById(R.id.etxt_rUsername);
+        etxt_password= (EditText)findViewById(R.id.etxt_rPsd);
+        etxt_confirmPassword=(EditText)findViewById(R.id.etxt_rConfirmPsd);
+        txt_error = (TextView)findViewById(R.id.txt_registerError);
         userDB = openOrCreateDatabase("UserDB",MODE_PRIVATE,null);
     }
 
@@ -49,7 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
         String username = etxt_username.getText().toString();
 
         String cpsd = etxt_confirmPassword.getText().toString();
-        userDB.execSQL("INSERT INTO UserTable VALUES(username,psd)");
+        userDB.execSQL("INSERT INTO UserTable VALUES(?,?,0);",new String[]{username,psd});
+
         Toast.makeText(this,"register success!",Toast.LENGTH_SHORT);
         Log.i("DB","register success");
 
@@ -60,17 +58,20 @@ public class RegisterActivity extends AppCompatActivity {
     boolean RegisterValidation(){
         String psd = etxt_password.getText().toString();
         String cpsd = etxt_confirmPassword.getText().toString();
-        if(psd != cpsd){
+        if(!psd.equals(cpsd) ){
             txt_error.setText(" password not match!");
             txt_error.setEnabled(true);
             return false;
         }
         String userName = etxt_username.getText().toString();
         if(psd!= "" && userName!=""){
-            Cursor cursor = userDB.rawQuery("SELECT Username" +
-                    "FROM Usertable" +
-                    "WHERE Username=" + userName+";" ,null);
-            if(cursor.getCount() == 0) return true;
+            Cursor cursor = userDB.rawQuery("SELECT Username " +
+                    "FROM UserTable " +
+                    "WHERE Username=?;" ,new String[]{userName});
+            if(cursor.getCount() ==0) return true;
+//            cursor.moveToFirst();
+//            int log = cursor.getInt(0);
+//            if(log == 0) return true;
             else {
                 txt_error.setText("user name already used!");
                 txt_error.setEnabled(true);

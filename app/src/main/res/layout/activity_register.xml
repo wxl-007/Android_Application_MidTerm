@@ -20,34 +20,40 @@
         android:id="@+id/linearContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/img_BG"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_BG">
 
         <ImageView
             android:id="@+id/img_profile"
             android:layout_width="wrap_content"
             android:layout_height="142dp"
-            android:layout_margin="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:clickable="true"
+            android:onClick="TakePic"
             app:srcCompat="@drawable/icon" />
 
         <EditText
-            android:id="@+id/etxt_username"
+            android:id="@+id/etxt_rUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:ems="10"
+            android:hint="User Name"
             android:inputType="textPersonName"
             android:shadowColor="#000000"
-            android:text="User Name"
             android:textAlignment="center"
             android:textColor="#F8F8F8"
+            android:textColorHint="#FDFDFD"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etxt_psd"
+            android:id="@+id/etxt_rPsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -57,10 +63,10 @@
             android:password="true"
             android:textAlignment="center"
             android:textColor="#F8F8F8"
-            android:textColorHint="#EEE6E6" />
+            android:textColorHint="#FCFCFC" />
 
         <EditText
-            android:id="@+id/etxt_confirmPsd"
+            android:id="@+id/etxt_rConfirmPsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -73,14 +79,15 @@
             android:textColorHint="#FFFFFF" />
 
         <Button
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_rRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="Register"
             android:text="Register"
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/txt_error"
+            android:id="@+id/txt_registerError"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:textAlignment="center"

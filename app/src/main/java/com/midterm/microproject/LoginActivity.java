@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -24,17 +22,21 @@ public class LoginActivity extends AppCompatActivity {
     SQLiteDatabase userDB;
     String errorMsg;
     TextView txt_error;
+    String curName;
+    String curScore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btn_Login = (Button)findViewById(R.id.btn_login);
-        btn_Register= (Button)findViewById(R.id.btn_register);
+        btn_Register= (Button)findViewById(R.id.btn_rRegister);
         btn_Rank = (ImageView)findViewById(R.id.btn_Rank);
         etxt_username = (EditText)findViewById(R.id.etxt_username);
         etxt_password= (EditText)findViewById(R.id.etxt_psd);
         userDB = openOrCreateDatabase("UserDB",MODE_PRIVATE,null);
-        txt_error = (TextView) findViewById(R.id.txt_error);
+        txt_error = (TextView) findViewById(R.id.txt_Error);
+        curName = "Guest";
+        curScore = "0";
         InitDatabase();
     }
 
@@ -45,17 +47,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     boolean TableIsEmpty(){
-        try {
-            String tQuery = "SELECT Username " +
-                    "FROM UserTable " +
-                    "WHERE Username='admin' ;";
-            Cursor c = userDB.rawQuery(tQuery, null);
-            c.moveToFirst();
-            Log.i("DB", c.getString(1));
-            return c.getCount() == 0;
-        }catch (Exception ex){
-            return false;
-        }
+        String count = "SELECT count(*) FROM UserTable ; ";
+        Cursor mcursor = userDB.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        Log.i("DB",icount + " count ");
+        return icount <= 0;
     }
 
     public void Register( View view){
@@ -67,6 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         if(LoginValidation()){
             txt_error.setEnabled(false);
             Intent intent = new Intent(this,MainActivity.class);
+            intent.putExtra("Name",curName);
+            intent.putExtra("Score",curScore);
+
             startActivity(intent);
         }
     }
@@ -74,18 +74,20 @@ public class LoginActivity extends AppCompatActivity {
     boolean LoginValidation(){
         String psd = etxt_password.getText().toString();
         String userName = etxt_username.getText().toString();
-        if(psd!= "" && userName!=""){
+        if(!psd.equals("") && !userName.equals("") && psd != null && userName !=null){
             try {
-                Cursor cursor = userDB.rawQuery("SELECT Username,Password " +
-                        "FROM Usertable " +
-                        "WHERE Username=" + userName + " AND Password=" + psd + ";", null);
-
+                Cursor cursor = userDB.rawQuery("SELECT Username , Password , Score " +
+                        "FROM UserTable " +
+                        "WHERE Username =?  AND Password = ?; ", new String[]{userName,psd});
+                cursor.moveToFirst();
                 if(cursor.getCount() == 0){
                     errorMsg = "cannot find user!";
                 }
                 else {
                     errorMsg = "";
                     Log.i("DB","count : "+cursor.getCount());
+                    curName = userName;
+                    curScore = cursor.getString(2);
                     return true;
                 }
             }catch (Exception e){
@@ -113,6 +115,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void PlayGame( View view){
         Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("Name",curName);
+        intent.putExtra("Score",curScore);
         startActivity(intent);
     }
 }

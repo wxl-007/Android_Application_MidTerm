@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,16 +29,17 @@ public class RankActivity extends AppCompatActivity {
 
 
     void InitAllUser(){
-        Cursor cursor =  userDB.rawQuery("SELECT Username,Score" +
-                "FROM UserDB " +
+        Cursor cursor =  userDB.rawQuery("SELECT Username,Score " +
+                "FROM  UserTable " +
                 "ORDER BY Score DESC;",null);
         cursor.moveToFirst();
         rankData = new ArrayList<String>();
         rankData.add("NO    Username    Score");
         int count =1;
+        rankData.add( count +"  "+ cursor.getString(0) +"   "+cursor.getString(1) );
         while (cursor.moveToNext()){
-            rankData.add( count+"   "+ cursor.getColumnName(0) +"   "+cursor.getColumnName(1) );
             count++;
+            rankData.add( count+"   "+ cursor.getString(0) +"   "+cursor.getString(1) );
         }
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rankData);

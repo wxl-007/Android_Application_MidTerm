@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="61dp"
+    android:layout_height="30dp"
+    android:layout_row="1"
+
+    android:layout_margin="8dp"
+    android:fontFamily="sans-serif-smallcaps"
+    android:gravity="center"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:singleLine="true"
+    android:textAlignment="center"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textSize="18sp"
+    android:typeface="normal" />

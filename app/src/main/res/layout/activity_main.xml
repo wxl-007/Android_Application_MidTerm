@@ -8,38 +8,8 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="411dp"
-            android:layout_height="match_parent"
-            android:background="#00C94646"
-            android:backgroundTint="#FFFFFF"
-            android:foregroundTint="#96BD8D"
-            android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:visibility="visible">
-
-        </ListView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="fill_parent"
-        android:layout_height="279dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,108 +17,131 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.011">
 
+        <Spinner
+            android:id="@+id/spinnerMusicList"
+            android:layout_width="156dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="164dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_container"
+            app:layout_constraintVertical_bias="0.054" />
+
+        <SeekBar
+            android:id="@+id/seekBarMusic"
+            android:layout_width="225dp"
+            android:layout_height="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerMusicList"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_Start"
+            app:layout_constraintVertical_bias="0.129" />
+
         <TextView
             android:id="@+id/txt_score"
-            android:layout_width="213dp"
-            android:layout_height="34dp"
+            android:layout_width="103dp"
+            android:layout_height="31dp"
             android:textAlignment="textEnd"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txt_grid"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.964"
+            app:layout_constraintHorizontal_bias="0.948"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.02" />
+            app:layout_constraintVertical_bias="0.347" />
 
-        <EditText
-            android:id="@+id/etxt_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_timeLeft"
+            android:layout_width="103dp"
+            android:layout_height="31dp"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_grid"
+            app:layout_constraintEnd_toStartOf="@+id/txt_score"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toEndOf="@+id/img_setting"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.217" />
 
         <Button
             android:id="@+id/btn_Start"
-            android:layout_width="151dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="44dp"
+            android:layout_width="92dp"
+            android:layout_height="37dp"
+            android:layout_marginTop="52dp"
             android:onClick="StartGame"
             android:text="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_guess"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.768" />
-
-        <Button
-            android:id="@+id/btn_guess"
-            android:layout_width="151dp"
-            android:layout_height="47dp"
-            android:onClick="CheckNumber"
-            android:text="guess"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.768" />
-
-        <TextView
-            android:id="@+id/txt_times"
-            android:layout_width="308dp"
-            android:layout_height="40dp"
-            android:text="Click start button to play"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/etxt_input"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.752" />
-
-        <ProgressBar
-            android:id="@+id/pb_timer"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-            android:layout_width="327dp"
-            android:layout_height="14dp"
-            android:background="#4CAF50"
-            android:foregroundTint="#4CAF50"
-            android:max="100"
-            android:padding="1dp"
-            android:progress="100"
-            android:progressBackgroundTint="#E91E63"
-            android:progressTint="#FFC107"
-            android:progressTintMode="src_over"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_guess" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_grid" />
 
         <ImageView
             android:id="@+id/img_setting"
             android:layout_width="47dp"
             android:layout_height="35dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
             android:onClick="Setting"
             app:layout_constraintEnd_toStartOf="@+id/txt_score"
-            app:layout_constraintHorizontal_bias="0.027"
+            app:layout_constraintHorizontal_bias="0.064"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/setting" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txt_times"
+            android:layout_width="210dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:text="Click start button to play"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_Start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.084"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_grid" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/mainbg" />
+        <GridView
+            android:id="@+id/txt_grid"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_setting"
+            app:layout_constraintVertical_bias="0.05">
+
+        </GridView>
+
+        <ImageView
+            android:id="@+id/img_container"
+            android:layout_width="124dp"
+            android:layout_height="102dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_timeLeft"
+            app:layout_constraintTop_toBottomOf="@+id/txt_grid"
+            app:srcCompat="@drawable/cdicon" />
+
+        <ImageView
+            android:id="@+id/imageViewCover"
+            android:layout_width="69dp"
+            android:layout_height="49dp"
+            android:clickable="true"
+            android:onClick="PlayStopMusic"
+            app:layout_constraintBottom_toBottomOf="@+id/img_container"
+            app:layout_constraintEnd_toEndOf="@+id/img_container"
+            app:layout_constraintStart_toStartOf="@+id/img_container"
+            app:layout_constraintTop_toTopOf="@+id/img_container"
+            app:layout_constraintVertical_bias="0.543"
+            tools:srcCompat="@drawable/playicon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
