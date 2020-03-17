@@ -8,4 +8,11 @@
     <string name="lessMessage">is less than the number chosen by program</string>
     <string name="timeover">Sorry, game over, your time is exhausted</string>
     <string name="startMessage">Click start button to play</string>
+    <string-array name="musicList_array">
+        <item>Bright Side</item>
+        <item>Night Life</item>
+        <item>Romantic Arc</item>
+        <item>Pumping</item>
+        <item>A Big Deal</item>
+    </string-array>
 </resources>
