@@ -34,12 +34,12 @@
             android:id="@+id/seekBarMusic"
             android:layout_width="225dp"
             android:layout_height="19dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:clickable="false"
+            app:layout_constraintBottom_toTopOf="@+id/runboy"
             app:layout_constraintEnd_toStartOf="@+id/spinnerMusicList"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_Start"
-            app:layout_constraintVertical_bias="0.129" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_Start" />
 
         <TextView
             android:id="@+id/txt_score"
@@ -74,10 +74,12 @@
             android:layout_marginTop="52dp"
             android:onClick="StartGame"
             android:text="start"
+            app:layout_constraintBottom_toTopOf="@+id/runboy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_grid" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_grid"
+            app:layout_constraintVertical_bias="0.327" />
 
         <ImageView
             android:id="@+id/img_setting"
@@ -141,6 +143,33 @@
             app:layout_constraintTop_toTopOf="@+id/img_container"
             app:layout_constraintVertical_bias="0.543"
             tools:srcCompat="@drawable/playicon" />
+
+        <ImageView
+            android:id="@+id/runboy"
+            android:layout_width="75dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="12dp"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerMusicList" />
+
+        <ImageView
+            android:id="@+id/fight"
+            android:layout_width="75dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="12dp"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:longClickable="false"
+            android:scaleX="-1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.294"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerMusicList" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

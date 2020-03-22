@@ -1,0 +1,11 @@
+<animation-list android:id="@+id/dyingAnimation"
+    android:oneshot="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/dead1" android:duration="100" />
+    <item android:drawable="@drawable/dead2" android:duration="100" />
+    <item android:drawable="@drawable/dead3" android:duration="100" />
+    <item android:drawable="@drawable/dead4" android:duration="100" />
+    <item android:drawable="@drawable/dead5" android:duration="100" />
+</animation-list>
+
+

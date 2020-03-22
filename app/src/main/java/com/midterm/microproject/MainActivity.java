@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.ToneGenerator;
@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,15 +23,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -66,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
     private ImageView musicCover;
     private Button stop;
     private Spinner musicList;
-    private static int oTime =0, sTime =0, eTime =0, lTime=0;
+    private int oTime =0, sTime =0, eTime =0, lTime=0;
     private ArrayAdapter<CharSequence> adapter;
     private Handler hdlr = new Handler();
     public static final String EXTRA_MESSAGE = "com.midterm.microproject.MESSAGE";
 
+    private ImageView runBoy;
+    private AnimationDrawable frameAnimation;
+    private ImageView fightBoy;
+    private AnimationDrawable frameAnimation1;
 
 
     @Override
@@ -92,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
         curScore = tIntent.getStringExtra("Score");
         txt_score.setText(curName+" score : "+ curScore);
 
-
-        // song part
-//        songName=(TextView) findViewById(R.id.songName);
-//        stop=(Button) findViewById(R.id.stop);
-//        leftTime=(TextView) findViewById(R.id.leftTime);
         musicBar=(SeekBar) findViewById(R.id.seekBarMusic);
         musicCover=(ImageView) findViewById(R.id.imageViewCover);
         mPlayer=MediaPlayer.create(this, R.raw.brightside);
@@ -159,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 mPlayer.release();
             }
         });
+
+        runBoy = (ImageView) findViewById(R.id.runboy);
+        fightBoy = (ImageView) findViewById(R.id.fight);
+
     }
     // init game needs
     public void Init(){
@@ -175,9 +174,6 @@ public class MainActivity extends AppCompatActivity {
                 TimerInterval();
             }
         }, 0, 1000);
-//        pb_timer.setMax(totalTime);
-//        pb_timer.setProgress(curTimeLeft);
-
         UpdateUI();
     }
     // restart game
@@ -186,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         Init();
         InitGrid();
         btn_start.setText("RESTART");
+        InitAnim(1);
     }
     //guess btn method
      void CheckNumber(View tView){
@@ -205,11 +202,13 @@ public class MainActivity extends AppCompatActivity {
                 GameOver(true);
                 tView.setBackgroundColor(Color.GREEN);
                 tView.setEnabled(false);
+
                 return;
             }
             UpdateUI();
         }else GameOver(false);
         if(game.GetRemainingTimes()==0) GameOver(false);
+        else InitAnim(3);
     }
 
 //game over no matter win or lose
@@ -223,10 +222,14 @@ public class MainActivity extends AppCompatActivity {
             toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
             Toast.makeText(this,res.getString(R.string.winMessage),Toast.LENGTH_LONG).show();
             SetScoreForUser();
+            InitAnim(2);
+            gv_numBtnGrid.setOnItemClickListener(null);
             gameTimer.cancel();
         }else{
             gameTimer.cancel();
-//            pb_timer.setProgress(0);
+            InitAnim(4);
+            gv_numBtnGrid.setOnItemClickListener(null);
+
             Toast.makeText(this,res.getString(R.string.loseMessage),Toast.LENGTH_LONG).show();
         }
     }
@@ -242,7 +245,6 @@ public class MainActivity extends AppCompatActivity {
     // update some ui change after every input
     void UpdateUI(){
         txt_time.setText( getResources().getString(R.string.Chance) +game.GetRemainingTimes() );
-//        txt_score.setText(getResources().getString(R.string.score) +game.GetRemainingTimes()*10 );
         txt_score.setText(curName+" score : "+ curScore);
     }
 
@@ -259,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
                 int minutes = seconds / 60;
                 seconds     = seconds % 60;
                 txt_timeLeft.setText(String.format("%d:%02d", minutes, seconds) );
+
             }else{
                 GameOver(false);
             }
@@ -318,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void PlayMusic(){
         mPlayer.start();
         eTime=mPlayer.getDuration();
@@ -328,10 +330,6 @@ public class MainActivity extends AppCompatActivity {
             musicBar.setMax(eTime);
             oTime = 1;
         }
-//        leftTime.setText(String.format("%d:%d",
-//                TimeUnit.MILLISECONDS.toMinutes(lTime),
-//                TimeUnit.MILLISECONDS.toSeconds(lTime) -
-//                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lTime))));
         musicBar.setProgress(sTime);
         hdlr.postDelayed(UpdateSongTime, 100);
     }
@@ -339,14 +337,12 @@ public class MainActivity extends AppCompatActivity {
     private Runnable UpdateSongTime=new Runnable() {
         @Override
         public void run() {
-
                     eTime = mPlayer.getDuration();
                     sTime = mPlayer.getCurrentPosition();
                     lTime = eTime - sTime;
                     long leftMin = TimeUnit.MILLISECONDS.toMinutes(lTime);
                     long leftSec = TimeUnit.MILLISECONDS.toSeconds(lTime) -
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(lTime));
-//                    leftTime.setText(String.format("%d:%d", leftMin, leftSec));
                     musicBar.setProgress(sTime);
                     hdlr.postDelayed(this, 100);
 
@@ -365,14 +361,53 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void BacktoGame(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        String message=songName.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-        mPlayer.stop();
+    void InitAnim(int type){
+        switch (type){
+            case 1:
+                runBoy.setBackgroundResource(R.drawable.running_animation);
+                frameAnimation = (AnimationDrawable) runBoy.getBackground();
+                frameAnimation.start();
+
+                break;
+            case 2:
+                runBoy.setBackgroundResource(R.drawable.win_animation);
+                frameAnimation = (AnimationDrawable) runBoy.getBackground();
+                frameAnimation.start();
+                break;
+            case 3:
+                runBoy.setBackgroundResource(R.drawable.dying_animation);
+                fightBoy.setBackgroundResource(R.drawable.fight_animation);
+                frameAnimation = (AnimationDrawable) runBoy.getBackground();
+                frameAnimation1 = (AnimationDrawable) fightBoy.getBackground();
+                fightBoy.postDelayed(new Runnable(){
+                    @Override
+                    public void run() {
+                        fightBoy.setBackground(null);
+                        InitAnim(1);
+                    }
+                },1000);
+                frameAnimation.start();
+                frameAnimation1.start();
+                break;
+            case 4:
+                runBoy.setBackgroundResource(R.drawable.dying_animation);
+                frameAnimation = (AnimationDrawable) runBoy.getBackground();
+                frameAnimation.start();
+                break;
+                default:
+                    break;
+        }
     }
 
+    @Override
+    public void onBackPressed() {
+        // your code.
+        super.onBackPressed();
+        mPlayer.stop();
+        hdlr.removeCallbacks(UpdateSongTime);
+        hdlr = null;
+        mPlayer = null;
+    }
 
 
 }

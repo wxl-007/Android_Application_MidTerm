@@ -24,7 +24,8 @@
         <ListView
             android:id="@+id/lv_rankList"
             android:layout_width="409dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
         </ListView>
 

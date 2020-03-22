@@ -8,6 +8,11 @@
     <string name="lessMessage">is less than the number chosen by program</string>
     <string name="timeover">Sorry, game over, your time is exhausted</string>
     <string name="startMessage">Click start button to play</string>
+    <string name="guessdetails">The object of the game is to guess the hidden four digit number. There are no repeated digits in the number.
+         Once you have guessed, a code will be shown that indicates how successful your guess was.\n
+        Character A : correct digit in the right place. \n
+        Character B : correct digit in the wrong place.
+    </string>
     <string-array name="musicList_array">
         <item>Bright Side</item>
         <item>Night Life</item>
@@ -15,4 +20,15 @@
         <item>Pumping</item>
         <item>A Big Deal</item>
     </string-array>
+    <string name="teammember">
+        Xiaoliang Wang\n
+        Devesh Vasnani\n
+        Xiao Jing Xu\n
+        Dr Md Fardoush Rahman\n
+        Oleksandr Palchevskyi\n
+    </string>
+
+    <string name="guessnumberwin">You Win!</string>
+    <string name="guessnumberlose">Game Over</string>
+
 </resources>

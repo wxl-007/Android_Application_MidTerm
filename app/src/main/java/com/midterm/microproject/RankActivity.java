@@ -34,15 +34,15 @@ public class RankActivity extends AppCompatActivity {
                 "ORDER BY Score DESC;",null);
         cursor.moveToFirst();
         rankData = new ArrayList<String>();
-        rankData.add("NO    Username    Score");
+        rankData.add("NO \t\t\t Username \t\t\t Score");
         int count =1;
-        rankData.add( count +"  "+ cursor.getString(0) +"   "+cursor.getString(1) );
+        rankData.add( count +" \t\t\t\t "+ cursor.getString(0) +" \t\t\t\t "+cursor.getString(1) );
         while (cursor.moveToNext()){
             count++;
-            rankData.add( count+"   "+ cursor.getString(0) +"   "+cursor.getString(1) );
+            rankData.add( count+" \t\t\t\t "+ cursor.getString(0) +" \t\t\t\t "+cursor.getString(1) );
         }
         ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rankData);
+                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, rankData);
         lv_rank.setAdapter(itemsAdapter);
     }
 }

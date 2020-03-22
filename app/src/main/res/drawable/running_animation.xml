@@ -1,0 +1,14 @@
+<animation-list android:id="@+id/runningAnimation"
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/run1" android:duration="100" />
+    <item android:drawable="@drawable/run2" android:duration="100" />
+    <item android:drawable="@drawable/run3" android:duration="100" />
+    <item android:drawable="@drawable/run4" android:duration="100" />
+    <item android:drawable="@drawable/run5" android:duration="100" />
+    <item android:drawable="@drawable/run6" android:duration="100" />
+    <item android:drawable="@drawable/run7" android:duration="100" />
+    <item android:drawable="@drawable/run8" android:duration="100" />
+</animation-list>
+
+

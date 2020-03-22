@@ -1,0 +1,12 @@
+<animation-list android:id="@+id/winAnimation"
+    android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/win1" android:duration="100" />
+    <item android:drawable="@drawable/win2" android:duration="100" />
+    <item android:drawable="@drawable/win3" android:duration="100" />
+    <item android:drawable="@drawable/win4" android:duration="100" />
+    <item android:drawable="@drawable/win5" android:duration="100" />
+    <item android:drawable="@drawable/win6" android:duration="100" />
+</animation-list>
+
+

@@ -1,0 +1,10 @@
+<animation-list android:id="@+id/winAnimation"
+    android:oneshot="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/fight1" android:duration="100" />
+    <item android:drawable="@drawable/fight2" android:duration="100" />
+    <item android:drawable="@drawable/fight3" android:duration="100" />
+    <item android:drawable="@drawable/fight4" android:duration="100" />
+    <item android:drawable="@drawable/fight5" android:duration="100" />
+    <item android:drawable="@drawable/fight6" android:duration="100" />
+</animation-list>

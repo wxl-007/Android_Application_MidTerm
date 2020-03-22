@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RankActivity"></activity>
+        <activity android:name=".GuessNumberGameActivity"></activity>
+        <activity android:name=".ReferenceActivity" />
+        <activity android:name=".RankActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".MainActivity" />

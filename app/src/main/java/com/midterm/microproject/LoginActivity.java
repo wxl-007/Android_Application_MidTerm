@@ -119,4 +119,16 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("Score",curScore);
         startActivity(intent);
     }
+
+    public void PlayNewGame( View view){
+        Intent intent = new Intent(this,GuessNumberGameActivity.class);
+        intent.putExtra("Name",curName);
+        intent.putExtra("Score",curScore);
+        startActivity(intent);
+    }
+
+    public void ReferencePage( View view){
+        Intent intent = new Intent(this,ReferenceActivity.class);
+        startActivity(intent);
+    }
 }
